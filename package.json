@@ -7,6 +7,10 @@
     "react-scripts": "1.1.1"
   },
   "dependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/register": "^7.24.6",
+    "forge-vuex-parser": "^1.0.69",
     "history": "^4.6.3",
     "marked": "^0.3.6",
     "prop-types": "^15.5.10",
