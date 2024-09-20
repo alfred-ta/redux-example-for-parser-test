@@ -22,6 +22,7 @@ export default (state = {}, action) => {
      * @returns {Object} An empty state.
      */
     case HOME_PAGE_UNLOADED:
+    default:
       return {};
   }
 };

@@ -112,6 +112,7 @@ export default (state = defaultState, action) => {
     case SETTINGS_PAGE_UNLOADED:
     case LOGIN_PAGE_UNLOADED:
     case REGISTER_PAGE_UNLOADED:
+    default:
       return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };
   }
 };

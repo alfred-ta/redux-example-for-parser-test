@@ -31,7 +31,6 @@ export default (state = {}, action) => {
     case LOGIN_PAGE_UNLOADED:
     case REGISTER_PAGE_UNLOADED:
       return {};
-
     /**
      * Handles the asynchronous start for login or register actions.
      * @param {string} action.subtype - The subtype of the action (LOGIN or REGISTER).
@@ -51,6 +50,8 @@ export default (state = {}, action) => {
      */
     case UPDATE_FIELD_AUTH:
       return { ...state, [action.key]: action.value };
+    default:
+      return state;
   }
 
   return state;

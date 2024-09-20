@@ -2,7 +2,7 @@ import {
   SETTINGS_SAVED,
   SETTINGS_PAGE_UNLOADED,
   ASYNC_START
-} from '../constants.actionTypes';
+} from '../constants/actionTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -27,6 +27,7 @@ export default (state = {}, action) => {
      * @returns {Object} An empty state.
      */
     case SETTINGS_PAGE_UNLOADED:
+    default:
       return {};
 
     /**
