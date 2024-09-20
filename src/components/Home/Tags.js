@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import agent from '../../agent';
 
 const Tags = props => {
-  const tags = props.tags;
-  if (tags) {
+  const { tags } = props;
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(tags ? true : false); 
+  }, [tags])
+  if (loading) {
     return (
       <div className="tag-list">
         {
@@ -26,11 +30,10 @@ const Tags = props => {
         }
       </div>
     );
-  } else {
-    return (
-      <div>Loading Tags...</div>
-    );
   }
+  return (
+    <div>Loading Tags...</div>
+  );
 };
 
 export default Tags;
