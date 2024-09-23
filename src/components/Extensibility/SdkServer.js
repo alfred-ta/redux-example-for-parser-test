@@ -49,8 +49,7 @@ const SdkServerComponent = (props) => {
             //   );
             //   break;
             case 'register':
-              const arg = safeJSONParse(extension.param);
-              registerPlugin({ location: event.data.lcation, plugin: arg})
+              registerPlugin({ location: event.data.action, plugin: event.data.args[0] })
               break;
             // case 'state.get':
             //   const storedData = JSON.parse(localStorage.getItem(extensionId) || '{}');
@@ -77,7 +76,8 @@ const SdkServerComponent = (props) => {
 
 
   const findExtension = (eventOrigin, extensionId) => {
-    return extensions.find((ext) => ext.url.includes(eventOrigin) && ext.id === extensionId);
+    // return extensions.find((ext) => ext.url.includes(eventOrigin) && ext.id === extensionId);
+    return extensions.find((ext) => ext.id === extensionId);
   };
 
   const connectExtension = (extension) => {
