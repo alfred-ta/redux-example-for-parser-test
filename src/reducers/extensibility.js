@@ -1,4 +1,14 @@
-export default (state = {}, action) => {
+const initialState = {
+  instancesList: [],
+  extensions: [
+    {
+      id: 'basic-example',
+      url: 'http://localhost:8000',
+      id: 'redux_bd39ef89-7ccb-4ec7-ae6f-2398a3d532a8'
+    }
+  ]
+};
+export default (state = initialState, action) => {
   switch (action.type) {
     /**
      * Register Plugin at the given extensibility points
@@ -23,16 +33,8 @@ export default (state = {}, action) => {
      * @returns {Object} An empty state.
      */
     case 'RESET_SDK':
+      return initialState;
     default:
-      return {
-        instancesList: [],
-        extensions: [
-          {
-            id: 'basic-example',
-            url: 'http://localhost:8000',
-            id: 'redux_bd39ef89-7ccb-4ec7-ae6f-2398a3d532a8'
-          }
-        ]
-      };
+      return state;
   }
 };

@@ -10,13 +10,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    initExtensibility: payload => dispatch({ type: 'RESET_SDK', payload }),
     registerPlugin: payload => dispatch({ type: 'REGISTER_PLUGIN', payload }),
   };
 }
 
 const SdkServerComponent = (props) => {
   const { extensions } = props;
-  const { registerPlugin } = props;
+  const { initExtensibility, registerPlugin } = props;
   const containerRef = useRef({});
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const SdkServerComponent = (props) => {
         const extension = findExtension(event.origin, extensionId);
 
         if (extension) {
+          console.log('found extension', extension)
           // Skip Permission check for now.
           // const permission = getPermissionFromSdkId(sdkId);
 
@@ -69,15 +71,15 @@ const SdkServerComponent = (props) => {
         }
       }
     };
-
     window.addEventListener('message', receiveMessage);
     return () => window.removeEventListener('message', receiveMessage);
   }, []);
 
 
   const findExtension = (eventOrigin, extensionId) => {
-    // return extensions.find((ext) => ext.url.includes(eventOrigin) && ext.id === extensionId);
-    return extensions.find((ext) => ext.id === extensionId);
+    if (extensions) // return extensions.find((ext) => ext.url.includes(eventOrigin) && ext.id === extensionId);
+      return extensions.find((ext) => ext.id === extensionId);
+    return null;
   };
 
   const connectExtension = (extension) => {
@@ -98,7 +100,7 @@ const SdkServerComponent = (props) => {
 
   return (
     <div className="sdk-server-iframe-container">
-      {extensions.map((extension) => (
+      {extensions && extensions.map((extension) => (
         <iframe
           key={extension.id}
           src={extension.url}
