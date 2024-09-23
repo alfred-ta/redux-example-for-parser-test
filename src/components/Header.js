@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const mapStateToProps = state => {
   return {
-    pluginList: state.extensibility.list
+    pluginList: state.extensibility.instancesList
   }};
 
 const LoggedOutViewComponent = props => {

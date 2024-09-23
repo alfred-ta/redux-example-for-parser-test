@@ -12,6 +12,7 @@ import Profile from '../components/Profile';
 import ProfileFavorites from '../components/ProfileFavorites';
 import Register from '../components/Register';
 import Settings from '../components/Settings';
+import SdkServer from '../components/Extensibility/SdkServer';
 import { store } from '../store';
 import { push } from 'react-router-redux';
 
@@ -56,16 +57,17 @@ class App extends React.Component {
             appName={this.props.appName}
             currentUser={this.props.currentUser} />
             <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/editor/:slug" component={Editor} />
-            <Route path="/editor" component={Editor} />
-            <Route path="/article/:id" component={Article} />
-            <Route path="/settings" component={Settings} />
-            <Route path="/@:username/favorites" component={ProfileFavorites} />
-            <Route path="/@:username" component={Profile} />
+              <Route exact path="/" component={Home}/>
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              <Route path="/editor/:slug" component={Editor} />
+              <Route path="/editor" component={Editor} />
+              <Route path="/article/:id" component={Article} />
+              <Route path="/settings" component={Settings} />
+              <Route path="/@:username/favorites" component={ProfileFavorites} />
+              <Route path="/@:username" component={Profile} />
             </Switch>
+            <SdkServer />
         </div>
       );
     }

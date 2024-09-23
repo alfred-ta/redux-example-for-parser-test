@@ -10,11 +10,11 @@ export default (state = {}, action) => {
     case 'REGISTER_PLUGIN':
       const { location, plugin } = action.payload;
       if (!location || !plugin) return state;
-      const plugins = state.list[location] || [];
+      const plugins = state.instancesList[location] || [];
       const newList = [...new Set([...plugins, plugin])];
       return {
         ...state,
-        list: newList
+        instancesList: newList
       };
 
     /**
@@ -25,7 +25,14 @@ export default (state = {}, action) => {
     case 'RESET_SDK':
     default:
       return {
-        list: []
+        instancesList: [],
+        extensions: [
+          {
+            id: 'basic-example',
+            url: 'http://localhost:8000',
+            id: 'redux_bd39ef89-7ccb-4ec7-ae6f-2398a3d532a8'
+          }
+        ]
       };
   }
 };
