@@ -9,15 +9,19 @@ const mapStateToProps = state => {
 
 const LoggedOutViewComponent = props => {
   const { pluginList } = props;
-  console.log('plugins list', pluginList)
+
   if (!props.currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
-        <li className="nav-item">
-          <Link to="/plugin" className="nav-link">
-            Plugin
-          </Link>
-        </li>
+        {
+          pluginList && pluginList.map((plugin) => (
+            <li className="nav-item" key={plugin.id}>
+              <Link to={`/plugin/${plugin.name}`} className="nav-link">
+                {plugin.label}
+              </Link>
+            </li>
+          ))
+        }
         <li className="nav-item">
           <Link to="/" className="nav-link">
             Home

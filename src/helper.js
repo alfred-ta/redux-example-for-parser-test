@@ -7,3 +7,8 @@ export function safeJSONParse(paramString) {
   }
   return param;
 }
+
+
+export function isAbsoluteURL(urlString) {
+  return urlString.startsWith('http://') || urlString.startsWith('https://');
+};

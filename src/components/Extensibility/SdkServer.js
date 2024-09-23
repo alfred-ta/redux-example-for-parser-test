@@ -82,6 +82,8 @@ const SdkServerComponent = (props) => {
     return null;
   };
 
+  
+
   const connectExtension = (extension) => {
     if (!containerRef.current[extension.id]) return;
     const iframeWindow = containerRef.current[extension.id].contentWindow;
@@ -90,6 +92,7 @@ const SdkServerComponent = (props) => {
       iframeWindow.postMessage(
         {
           type: 'CONNECT',
+          src: extension.url, 
           extensionId: extension.id,
           initialArgs: { param: { message: 'Welcome' } },
         },
