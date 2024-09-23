@@ -58,9 +58,6 @@ const SdkServer = () => {
               };
               setExtensionPoints(updatedExtensionPoints);
               break;
-            case 'picker':
-              handlePicker(event, extensionId);
-              break;
             case 'state.get':
               const storedData = JSON.parse(localStorage.getItem(extensionId) || '{}');
               event.source.postMessage(
@@ -84,20 +81,6 @@ const SdkServer = () => {
     return () => window.removeEventListener('message', receiveMessage);
   }, [extensionPoints, dispatch]);
 
-  const handlePicker = async (event, extensionId) => {
-    const siteId = ''; // Get siteId from route params
-    const arg = event.data.args[0];
-    localStorage.setItem('integrationState', JSON.stringify({ ...arg, siteId }));
-
-    if (event.data.action === 'figma') {
-      const { parseAppId, parseServerURL } = arg;
-      initParse(parseServerURL, parseAppId);
-      const url = await authorize();
-      if (url) window.location.href = url;
-    } else if (event.data.action === 'vulcan') {
-      // Navigate to integration
-    }
-  };
 
   const findExtension = (eventOrigin, extensionId) => {
     return extensions.find((ext) => ext.developerApp.url.includes(eventOrigin) && ext.id === extensionId);
