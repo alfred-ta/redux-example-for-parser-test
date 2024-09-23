@@ -67,21 +67,28 @@ const PluginPage = ({ plugins, match }) => {
   }, [connectApp]);
 
   
-  if (!currentPlugin) return <h3>Plugin Page</h3>;
-  return (<div>
-    <h3>{currentPlugin.name}</h3>
-    <iframe
-      ref={iframeRef}
-      src={pluginURL}
-      className="plugin-wrapper"
-      width={currentPlugin.width || '100%'}
-      height={currentPlugin.height || '100%'}
-      id={currentPlugin.extensionId}
-      sandbox={sandbox}
-    />
-  </div>);  
-
-  
+  return (
+    <div className="container page">
+      {
+        !currentPlugin ?
+          <h3>Plugin Page</h3>
+        :
+          <div>
+            <h3>{currentPlugin.label}</h3>
+            <iframe
+              ref={iframeRef}
+              src={pluginURL}
+              className="plugin-wrapper"
+              width={currentPlugin.width || '100%'}
+              height={currentPlugin.height || '100%'}
+              id={currentPlugin.extensionId}
+              sandbox={sandbox}
+              style={{ minHeight: 500 }}
+            />
+          </div>
+      }
+    </div>
+  );  
 };
 
 const mapStateToProps = (state) => ({
