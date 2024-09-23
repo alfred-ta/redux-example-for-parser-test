@@ -1,11 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const LoggedOutView = props => {
+const mapStateToProps = state => {
+  return {
+    pluginList: state.extensibility.list
+  }};
+
+const LoggedOutViewComponent = props => {
+  const { pluginList } = props;
+  console.log('plugins list', pluginList)
   if (!props.currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
-
+        <li className="nav-item">
+          <Link to="/plugin" className="nav-link">
+            Plugin
+          </Link>
+        </li>
         <li className="nav-item">
           <Link to="/" className="nav-link">
             Home
@@ -29,6 +41,8 @@ const LoggedOutView = props => {
   }
   return null;
 };
+
+const LoggedOutView = connect(mapStateToProps)(LoggedOutViewComponent);
 
 const LoggedInView = props => {
   if (props.currentUser) {
