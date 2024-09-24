@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const mapStateToProps = state => {
   return {
-    pluginList: state.extensibility.instancesList
+    pluginList: state.extensibility.instancesList.header
   }};
 
 
@@ -26,7 +26,7 @@ const LoggedOutViewComponent = props => {
       <ul className="nav navbar-nav pull-xs-right">
         {
           pluginList && pluginList.map((plugin) => (
-            <li className="nav-item" key={plugin.id}>
+            <li className="nav-item" key={plugin.extensionId}>
               {
                 plugin.onClick ? 
                   <a onClick={() => onSendCallbackRequest(plugin)} className="nav-link">
