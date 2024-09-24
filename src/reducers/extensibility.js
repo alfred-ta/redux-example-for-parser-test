@@ -4,7 +4,6 @@ const initialState = {
     {
       id: 'basic-example',
       url: 'https://basic-redux-embed.getforge.io/',
-      id: 'redux_bd39ef89-7ccb-4ec7-ae6f-2398a3d532a8'
     }
   ]
 };

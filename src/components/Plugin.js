@@ -78,6 +78,7 @@ const PluginPage = ({ plugins, match }) => {
             <iframe
               ref={iframeRef}
               src={pluginURL}
+              title="e11y-plugin"
               className="plugin-wrapper"
               width={currentPlugin.width || '100%'}
               height={currentPlugin.height || '100%'}

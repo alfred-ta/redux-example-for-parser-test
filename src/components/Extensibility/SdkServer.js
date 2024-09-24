@@ -10,20 +10,19 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    initExtensibility: payload => dispatch({ type: 'RESET_SDK', payload }),
     registerPlugin: payload => dispatch({ type: 'REGISTER_PLUGIN', payload }),
   };
 }
 
 const SdkServerComponent = (props) => {
   const { extensions } = props;
-  const { initExtensibility, registerPlugin } = props;
+  const { registerPlugin } = props;
   const containerRef = useRef({});
 
   useEffect(() => {
     const receiveMessage = async (event) => {
       if (event.data) {
-        const { extensionId, sdkId } = event.data;
+        const { extensionId } = event.data;
         const extension = findExtension(event.origin, extensionId);
 
         if (extension) {
@@ -94,7 +93,7 @@ const SdkServerComponent = (props) => {
           type: 'CONNECT',
           src: extension.url, 
           extensionId: extension.id,
-          initialArgs: { param: { message: 'Welcome' } },
+          initialArgs: { param: { ...param, message: 'Welcome' } },
         },
         '*'
       );
@@ -107,6 +106,7 @@ const SdkServerComponent = (props) => {
         <iframe
           key={extension.id}
           src={extension.url}
+          title={`e11y-extension-${extension.id}`}
           style={{ border: 'none' }}
           id={extension.id}
           ref={(el) => (containerRef.current[extension.id] = el)}
