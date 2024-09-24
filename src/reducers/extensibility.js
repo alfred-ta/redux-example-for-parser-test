@@ -1,5 +1,6 @@
 const initialState = {
   instancesList: [],
+  requestList: [],
   extensions: [
     {
       id: 'basic-example',
@@ -26,6 +27,22 @@ export default (state = initialState, action) => {
         ...state,
         instancesList: newList
       };
+
+    case 'PUSH_CALLBACK_REQUEST':
+      if (!action.payload.callbackId) return state;
+      return {
+        ...state,
+        requestList: [...new Set([...state.requestList, action.payload])]
+      };
+
+    case 'PULL_CALLBACK_REQUEST':
+      if (!action.payload.callbackId) return state;
+      const requestList = state.requestList.filter(extension => extension.callbackId !== action.payload.callbackId)
+      return {
+        ...state,
+        requestList
+      };
+  
 
     /**
      * Handles RESET SDK State

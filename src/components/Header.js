@@ -7,8 +7,19 @@ const mapStateToProps = state => {
     pluginList: state.extensibility.instancesList
   }};
 
+
+const mapDispatchToProps = dispatch => {
+  return {
+    pushCallbackRequest: payload => dispatch({ type: 'PUSH_CALLBACK_REQUEST', payload }),
+  };
+}
+  
 const LoggedOutViewComponent = props => {
-  const { pluginList } = props;
+  const { pluginList, pushCallbackRequest } = props;
+
+  const onSendCallbackRequest = (plugin) => {
+    pushCallbackRequest({ ...plugin, callbackId: plugin.onClick });
+  }
 
   if (!props.currentUser) {
     return (
@@ -16,9 +27,16 @@ const LoggedOutViewComponent = props => {
         {
           pluginList && pluginList.map((plugin) => (
             <li className="nav-item" key={plugin.id}>
-              <Link to={`/plugin/${plugin.name}`} className="nav-link">
-                {plugin.label}
-              </Link>
+              {
+                plugin.onClick ? 
+                  <a onClick={() => onSendCallbackRequest(plugin)} className="nav-link">
+                    {plugin.label}
+                  </a>
+                :
+                  <Link to={`/plugin/${plugin.name}`} className="nav-link">
+                    {plugin.label}
+                  </Link>
+              }
             </li>
           ))
         }
@@ -46,7 +64,7 @@ const LoggedOutViewComponent = props => {
   return null;
 };
 
-const LoggedOutView = connect(mapStateToProps)(LoggedOutViewComponent);
+const LoggedOutView = connect(mapStateToProps, mapDispatchToProps)(LoggedOutViewComponent);
 
 const LoggedInView = props => {
   if (props.currentUser) {

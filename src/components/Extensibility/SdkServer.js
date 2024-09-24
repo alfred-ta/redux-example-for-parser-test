@@ -4,20 +4,22 @@ import { safeJSONParse } from '../../helper';
 
 const mapStateToProps = state => {
   return {
-    extensions: state.extensibility.extensions
+    extensions: state.extensibility.extensions,
+    requestList: state.extensibility.requestList
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     registerPlugin: payload => dispatch({ type: 'REGISTER_PLUGIN', payload }),
+    pullCallbackRequest: payload => dispatch({ type: 'PULL_CALLBACK_REQUEST', payload }),
     emitAction: (type, payload) => dispatch({ type, payload })
   };
 }
 
 const SdkServerComponent = (props) => {
-  const { extensions } = props;
-  const { registerPlugin, emitAction } = props;
+  const { extensions, requestList } = props;
+  const { registerPlugin, pullCallbackRequest, emitAction } = props;
   const containerRef = useRef({});
 
   useEffect(() => {
@@ -78,6 +80,12 @@ const SdkServerComponent = (props) => {
     return () => window.removeEventListener('message', receiveMessage);
   }, []);
 
+  useEffect(() => {
+    if (requestList.length > 0) {
+      requestList.forEach(sendMessage);
+    }
+  }, [requestList]);
+
 
   const findExtension = (eventOrigin, extensionId) => {
     if (extensions) // return extensions.find((ext) => ext.url.includes(eventOrigin) && ext.id === extensionId);
@@ -102,6 +110,14 @@ const SdkServerComponent = (props) => {
         '*'
       );
     }
+  };
+
+  
+  const sendMessage = (extension) => {
+    const id = extension.extensionId;
+    if (containerRef.current[id] && containerRef.current[id].contentWindow) 
+      containerRef.current[id].contentWindow.postMessage({ type: "CALLBACK", options: extension, callbackId: extension.callbackId }, '*');
+    pullCallbackRequest(extension);
   };
 
   return (
