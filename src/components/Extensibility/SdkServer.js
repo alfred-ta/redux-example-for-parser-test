@@ -58,18 +58,18 @@ const SdkServerComponent = (props) => {
             case 'register':
               registerPlugin({ location: event.data.action, plugin: event.data.args[0] })
               break;
-            // case 'state.get':
-            //   const storedData = JSON.parse(localStorage.getItem(extensionId) || '{}');
-            //   event.source.postMessage(
-            //     { type: 'state.get', callbackId: event.data.callbackId, result: storedData[event.data.args[0]] },
-            //     event.origin
-            //   );
-            //   break;
-            // case 'state.set':
-            //   const [key, value] = event.data.args;
-            //   const newData = { ...JSON.parse(localStorage.getItem(extensionId) || '{}'), [key]: value };
-            //   localStorage.setItem(extensionId, JSON.stringify(newData));
-            //   break;
+            case 'state.get':
+              const storedData = JSON.parse(localStorage.getItem(extensionId) || '{}');
+              event.source.postMessage(
+                { type: 'state.get', id: event.data.id, result: storedData[event.data.args[0]] },
+                event.origin
+              );
+              break;
+            case 'state.set':
+              const [key, value] = event.data.args;
+              const newData = { ...JSON.parse(localStorage.getItem(extensionId) || '{}'), [key]: value };
+              localStorage.setItem(extensionId, JSON.stringify(newData));
+              break;
             default:
               console.log('Unhandled message:', event.data);
           }
@@ -88,9 +88,7 @@ const SdkServerComponent = (props) => {
 
 
   const findExtension = (eventOrigin, extensionId) => {
-    if (extensions) // return extensions.find((ext) => ext.url.includes(eventOrigin) && ext.id === extensionId);
-      return extensions.find((ext) => ext.id === extensionId);
-    return null;
+    return extensions.find((ext) => ext.url.includes(eventOrigin) && ext.id === extensionId);
   };
 
   
