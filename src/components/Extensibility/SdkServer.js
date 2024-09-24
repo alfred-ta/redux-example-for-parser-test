@@ -11,12 +11,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     registerPlugin: payload => dispatch({ type: 'REGISTER_PLUGIN', payload }),
+    emitAction: (type, payload) => dispatch({ type, payload })
   };
 }
 
 const SdkServerComponent = (props) => {
   const { extensions } = props;
-  const { registerPlugin } = props;
+  const { registerPlugin, emitAction } = props;
   const containerRef = useRef({});
 
   useEffect(() => {
@@ -33,12 +34,15 @@ const SdkServerComponent = (props) => {
           // if (!permission || isValidRequest(permission, event.data.kind, event.data.action) === false) return;
 
           switch (event.data.kind) {
-            // case 'action':
-            //   dispatch({ type: event.data.action, payload: event.data.args || [] });
-            //   break;
-            // case 'mutation':
-            //   dispatch({ type: event.data.action, payload: event.data.args || [] });
-            //   break;
+            case 'action':
+              const names = event.data.action.split('/');
+              // We need only ACTION_NAME from `{namespaceName}/{ACTION_NAME}`
+              if (names && names.length > 1) {
+                const [, actionName] = names;
+                const [payload] = event.data.args || [];
+                emitAction(actionName, payload);
+              }
+              break;
             // case 'getter':
             //   const getterResult = event.data.args
             //     ? useSelector((state) => state[event.data.action](...event.data.args))

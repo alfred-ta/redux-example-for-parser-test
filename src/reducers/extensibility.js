@@ -3,7 +3,8 @@ const initialState = {
   extensions: [
     {
       id: 'basic-example',
-      url: 'https://basic-redux-embed.getforge.io/',
+      // url: 'https://basic-redux-embed.getforge.io/',
+      url: 'http://localhost:8000/',
     }
   ]
 };
