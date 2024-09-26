@@ -15,5 +15,6 @@ build
 npm-debug.log
 .idea
 redux
+hooksRedux
 
 *.zip

@@ -2,6 +2,7 @@ import React from 'react';
 import SimpleCounter from './views/SimpleCounter';
 import TodoList from './views/TodoList';
 import NameCard from './views/NameCard';
+import SdkServerComponent from './components/SdkServer';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
 
                 {/* Please check /views/TodoList.js for detail*/}
                 <TodoList/>
+                <SdkServerComponent />
             </main>
         </div>
     );
