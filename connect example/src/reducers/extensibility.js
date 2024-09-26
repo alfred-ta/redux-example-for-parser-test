@@ -21,16 +21,12 @@ export default (state = initialState, action) => {
     case 'REGISTER_PLUGIN':
       const { location, plugin } = action.payload;
       if (!location || !plugin) return state;
-      console.log('000000000000000state', action.payload)
-      console.log('state', state.instancesList)
-      const plugins = state.instancesList[location] || [];
-      const newList = [...new Set([...plugins, plugin])];
+      const newInstance = {...plugin, location};
+      const plugins = state.instancesList || [];
+      const newList = [...new Set([...plugins, newInstance])];
       return {
         ...state,
-        instancesList: {
-          ...state.instancesList,
-          [location]: newList
-        }
+        instancesList: newList
       };
 
     case 'PUSH_CALLBACK_REQUEST':

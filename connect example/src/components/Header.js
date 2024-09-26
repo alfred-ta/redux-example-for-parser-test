@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const mapStateToProps = state => {
   return {
-    pluginList: state.extensibility.instancesList.header
+    pluginList: state.extensibility.instancesList.filter(({location}) => location ==='header')
   }};
 
 
