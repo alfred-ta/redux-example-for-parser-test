@@ -1,5 +1,5 @@
 'use strict';
-window.reduxSDK = (() => {
+window.hooksReduxSDK = (() => {
   const CONNECTED_EV = new Event('connected');
   let initialData = {};
   const callbacks = {};
@@ -7,7 +7,7 @@ window.reduxSDK = (() => {
     let d = new Date().getTime();
     let d2 = (performance && performance.now && performance.now() * 1000) || 0;
 
-    return 'xxxxxxxx-xxxx-rxxx-xxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-hxxx-xxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       let r = Math.random() * 16;
       if (d > 0) {
         r = (d + r) % 16 | 0;
@@ -109,8 +109,8 @@ window.reduxSDK = (() => {
     new Promise((resolve, reject) => {
       // Get the result from parent and resolve to the caller.
       const onIFrameMessageReceived = (event) => {
-        const dataToCheck = event.data;
-        const hasSameMethod = dataToCheck.type === kind;
+        const dataToCheck = event.data.data;
+        const hasSameMethod = dataToCheck.kind === kind;
         const hasSameId = dataToCheck.id === id;
 
         if (hasSameMethod && hasSameId) {
@@ -179,117 +179,33 @@ window.reduxSDK = (() => {
   
   const api = {
     // GENERATED STUB START
-    actions: {"article":{"ARTICLE_PAGE_LOADED":(...args) => {
-  sendAction("article/ARTICLE_PAGE_LOADED", ...args);
-},"ARTICLE_PAGE_UNLOADED":(...args) => {
-  sendAction("article/ARTICLE_PAGE_UNLOADED", ...args);
-},"ADD_COMMENT":(...args) => {
-  sendAction("article/ADD_COMMENT", ...args);
-},"DELETE_COMMENT":(...args) => {
-  sendAction("article/DELETE_COMMENT", ...args);
-}},"articleList":{"ARTICLE_FAVORITED":(...args) => {
-  sendAction("articleList/ARTICLE_FAVORITED", ...args);
-},"ARTICLE_UNFAVORITED":(...args) => {
-  sendAction("articleList/ARTICLE_UNFAVORITED", ...args);
-},"SET_PAGE":(...args) => {
-  sendAction("articleList/SET_PAGE", ...args);
-},"APPLY_TAG_FILTER":(...args) => {
-  sendAction("articleList/APPLY_TAG_FILTER", ...args);
-},"HOME_PAGE_LOADED":(...args) => {
-  sendAction("articleList/HOME_PAGE_LOADED", ...args);
-},"HOME_PAGE_UNLOADED":(...args) => {
-  sendAction("articleList/HOME_PAGE_UNLOADED", ...args);
-},"CHANGE_TAB":(...args) => {
-  sendAction("articleList/CHANGE_TAB", ...args);
-},"PROFILE_PAGE_LOADED":(...args) => {
-  sendAction("articleList/PROFILE_PAGE_LOADED", ...args);
-},"PROFILE_FAVORITES_PAGE_LOADED":(...args) => {
-  sendAction("articleList/PROFILE_FAVORITES_PAGE_LOADED", ...args);
-},"PROFILE_PAGE_UNLOADED":(...args) => {
-  sendAction("articleList/PROFILE_PAGE_UNLOADED", ...args);
-},"PROFILE_FAVORITES_PAGE_UNLOADED":(...args) => {
-  sendAction("articleList/PROFILE_FAVORITES_PAGE_UNLOADED", ...args);
-}},"auth":{"LOGIN":(...args) => {
-  sendAction("auth/LOGIN", ...args);
-},"REGISTER":(...args) => {
-  sendAction("auth/REGISTER", ...args);
-},"LOGIN_PAGE_UNLOADED":(...args) => {
-  sendAction("auth/LOGIN_PAGE_UNLOADED", ...args);
-},"REGISTER_PAGE_UNLOADED":(...args) => {
-  sendAction("auth/REGISTER_PAGE_UNLOADED", ...args);
-},"ASYNC_START":(...args) => {
-  sendAction("auth/ASYNC_START", ...args);
-},"UPDATE_FIELD_AUTH":(...args) => {
-  sendAction("auth/UPDATE_FIELD_AUTH", ...args);
-}},"common":{"APP_LOAD":(...args) => {
-  sendAction("common/APP_LOAD", ...args);
-},"REDIRECT":(...args) => {
-  sendAction("common/REDIRECT", ...args);
-},"LOGOUT":(...args) => {
-  sendAction("common/LOGOUT", ...args);
-},"ARTICLE_SUBMITTED":(...args) => {
-  sendAction("common/ARTICLE_SUBMITTED", ...args);
-},"SETTINGS_SAVED":(...args) => {
-  sendAction("common/SETTINGS_SAVED", ...args);
-},"LOGIN":(...args) => {
-  sendAction("common/LOGIN", ...args);
-},"REGISTER":(...args) => {
-  sendAction("common/REGISTER", ...args);
-},"DELETE_ARTICLE":(...args) => {
-  sendAction("common/DELETE_ARTICLE", ...args);
-},"ARTICLE_PAGE_UNLOADED":(...args) => {
-  sendAction("common/ARTICLE_PAGE_UNLOADED", ...args);
-},"EDITOR_PAGE_UNLOADED":(...args) => {
-  sendAction("common/EDITOR_PAGE_UNLOADED", ...args);
-},"HOME_PAGE_UNLOADED":(...args) => {
-  sendAction("common/HOME_PAGE_UNLOADED", ...args);
-},"PROFILE_PAGE_UNLOADED":(...args) => {
-  sendAction("common/PROFILE_PAGE_UNLOADED", ...args);
-},"PROFILE_FAVORITES_PAGE_UNLOADED":(...args) => {
-  sendAction("common/PROFILE_FAVORITES_PAGE_UNLOADED", ...args);
-},"SETTINGS_PAGE_UNLOADED":(...args) => {
-  sendAction("common/SETTINGS_PAGE_UNLOADED", ...args);
-},"LOGIN_PAGE_UNLOADED":(...args) => {
-  sendAction("common/LOGIN_PAGE_UNLOADED", ...args);
-},"REGISTER_PAGE_UNLOADED":(...args) => {
-  sendAction("common/REGISTER_PAGE_UNLOADED", ...args);
-}},"editor":{"EDITOR_PAGE_LOADED":(...args) => {
-  sendAction("editor/EDITOR_PAGE_LOADED", ...args);
-},"EDITOR_PAGE_UNLOADED":(...args) => {
-  sendAction("editor/EDITOR_PAGE_UNLOADED", ...args);
-},"ARTICLE_SUBMITTED":(...args) => {
-  sendAction("editor/ARTICLE_SUBMITTED", ...args);
-},"ASYNC_START":(...args) => {
-  sendAction("editor/ASYNC_START", ...args);
-},"ADD_TAG":(...args) => {
-  sendAction("editor/ADD_TAG", ...args);
-},"REMOVE_TAG":(...args) => {
-  sendAction("editor/REMOVE_TAG", ...args);
-},"UPDATE_FIELD_EDITOR":(...args) => {
-  sendAction("editor/UPDATE_FIELD_EDITOR", ...args);
-}},"home":{"HOME_PAGE_LOADED":(...args) => {
-  sendAction("home/HOME_PAGE_LOADED", ...args);
-},"HOME_PAGE_UNLOADED":(...args) => {
-  sendAction("home/HOME_PAGE_UNLOADED", ...args);
-}},"profile":{"PROFILE_PAGE_LOADED":(...args) => {
-  sendAction("profile/PROFILE_PAGE_LOADED", ...args);
-},"PROFILE_PAGE_UNLOADED":(...args) => {
-  sendAction("profile/PROFILE_PAGE_UNLOADED", ...args);
-},"FOLLOW_USER":(...args) => {
-  sendAction("profile/FOLLOW_USER", ...args);
-},"UNFOLLOW_USER":(...args) => {
-  sendAction("profile/UNFOLLOW_USER", ...args);
-}},"settings":{"SETTINGS_SAVED":(...args) => {
-  sendAction("settings/SETTINGS_SAVED", ...args);
-},"SETTINGS_PAGE_UNLOADED":(...args) => {
-  sendAction("settings/SETTINGS_PAGE_UNLOADED", ...args);
-},"ASYNC_START":(...args) => {
-  sendAction("settings/ASYNC_START", ...args);
-}},"extensibility":{}},
+    actions: {"characters":{"CHANGE_NAME":(...args) => {
+  sendAction("characters/CHANGE_NAME", ...args);
+},"CHANGE_OCCUPATION":(...args) => {
+  sendAction("characters/CHANGE_OCCUPATION", ...args);
+},"CHANGE_AGE":(...args) => {
+  sendAction("characters/CHANGE_AGE", ...args);
+}},"myCounter":{"INCREMENT_COUNT":(...args) => {
+  sendAction("myCounter/INCREMENT_COUNT", ...args);
+},"INCREMENT_COUNT_TEN":(...args) => {
+  sendAction("myCounter/INCREMENT_COUNT_TEN", ...args);
+},"DOUBLE_COUNT":(...args) => {
+  sendAction("myCounter/DOUBLE_COUNT", ...args);
+},"DECREMENT_COUNT_TEN":(...args) => {
+  sendAction("myCounter/DECREMENT_COUNT_TEN", ...args);
+},"DECREMENT_COUNT":(...args) => {
+  sendAction("myCounter/DECREMENT_COUNT", ...args);
+},"RESET_COUNT":(...args) => {
+  sendAction("myCounter/RESET_COUNT", ...args);
+}},"todos":{"ADD_TODO":(...args) => {
+  sendAction("todos/ADD_TODO", ...args);
+},"REMOVE_TODO":(...args) => {
+  sendAction("todos/REMOVE_TODO", ...args);
+}}},
   
-    mutations: {"article":{},"articleList":{},"auth":{},"common":{},"editor":{},"home":{},"profile":{},"settings":{},"extensibility":{}}, 
+    mutations: {"characters":{},"myCounter":{},"todos":{}}, 
 
-    getters: {"article":{},"articleList":{},"auth":{},"common":{},"editor":{},"home":{},"profile":{},"settings":{},"extensibility":{}},
+    getters: {"characters":{},"myCounter":{},"todos":{}},
     // GENERATED STUB END
   };
 
