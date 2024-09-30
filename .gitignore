@@ -16,5 +16,6 @@ npm-debug.log
 .idea
 redux
 hooksRedux
+tsRedux
 
 *.zip

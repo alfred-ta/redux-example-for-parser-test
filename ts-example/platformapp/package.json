@@ -13,6 +13,7 @@
     "@types/node": "^12.12.27",
     "connected-react-router": "^6.7.0",
     "emotion-theming": "^10.0.27",
+    "forge-vuex-parser": "^1.1.3",
     "history": "^4.10.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
